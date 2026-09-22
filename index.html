@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReservaFácil Escolar</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+body {
+    background: #f4f7fb;
+}
+header {
+    background: #1565c0;
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+header h1 {
+    font-size: 35px;
+}
+nav {
+    background: #0d47a1;
+    padding: 15px;
+    text-align: center;
+}
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 20px;
+    font-weight: bold;
+}
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
+}
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px #ccc;
+}
+h2 {
+    color: #1565c0;
+    margin-bottom: 15px;
+}
+.cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.ambiente {
+    flex: 1;
+    min-width: 250px;
+    background: #e3f2fd;
+    padding: 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 2px solid transparent;
+}
+.ambiente:hover {
+    transform: translateY(-5px);
+    border-color: #1565c0;
+    box-shadow: 0 5px 12px #bbb;
+}
+.ambiente h3 {
+    margin-bottom: 10px;
+}
+.ambiente p {
+    color: #555;
+}
+button {
+    background: #1565c0;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+button:hover {
+    background: #0d47a1;
+}
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: 1px solid #aaa;
+}
+#resultado {
+    margin-top: 20px;
+    color: green;
+    font-weight: bold;
+}
+footer {
+    background: #0d47a1;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+#telaReservas {
+    display: none;
+}
+.tituloAmbiente {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.reserva {
+    background: #f4f7fb;
+    border-left: 5px solid #1565c0;
+    padding: 15px;
+    margin: 12px 0;
+    border-radius: 8px;
+}
+.reserva strong {
+    color: #1565c0;
+}
+.semReserva {
+    background: #fff3cd;
+    color: #856404;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+.voltar {
+    background: #555;
+}
+.voltar:hover {
+    background: #333;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>📚 ReservaFácil Escolar</h1>
+    <p>Sistema de reserva de espaços da escola</p>
+</header>
+
+<nav>
+    <a href="#" onclick="mostrarInicio()">Início</a>
+    <a href="#" onclick="mostrarInicio()">Reservas</a>
+    <a href="#">Contato</a>
+</nav>
+
+<div class="container">
+    <div id="telaPrincipal">
+        <div class="card">
+            <h2>Ambientes disponíveis</h2>
+            <p style="margin-bottom:20px;">Clique em um ambiente para ver somente as reservas dele.</p>
+
+            <div class="cards">
+                <div class="ambiente" onclick="abrirReservas('Laboratório de Informática')">
+                    <h3>💻 Laboratório de Informática</h3>
+                    <p>Computadores disponíveis para aulas e pesquisas.</p>
+                    <p style="margin-top:15px;"><strong>👆 Ver reservas</strong></p>
+                </div>
+
+                <div class="ambiente" onclick="abrirReservas('Quadra Esportiva')">
+                    <h3>🏀 Quadra Esportiva</h3>
+                    <p>Espaço para educação física e eventos.</p>
+                    <p style="margin-top:15px;"><strong>👆 Ver reservas</strong></p>
+                </div>
+
+                <div class="ambiente" onclick="abrirReservas('Sala Multimídia')">
+                    <h3>🏫 Sala Multimídia</h3>
+                    <p>Sala com projetor e equipamentos.</p>
+                    <p style="margin-top:15px;"><strong>👆 Ver reservas</strong></p>
+                </div>
+
+                <div class="ambiente" onclick="abrirReservas('Televisão')">
+                    <h3>📺 Televisão</h3>
+                    <p>Televisão para usar em sala de aula.</p>
+                    <p style="margin-top:15px;"><strong>👆 Ver reservas</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Faça sua reserva</h2>
+
+            <label for="nome">Nome:</label>
+            <input id="nome" type="text" placeholder="Digite seu nome">
+
+            <label for="local">Escolha o espaço:</label>
+            <select id="local">
+                <option value="Laboratório de Informática">Laboratório de Informática</option>
+                <option value="Quadra Esportiva">Quadra Esportiva</option>
+                <option value="Sala Multimídia">Sala Multimídia</option>
+                <option value="Televisão">Televisão</option>
+            </select>
+
+            <label for="data">Data:</label>
+            <input id="data" type="date">
+
+            <label for="hora">Horário:</label>
+            <input id="hora" type="time">
+
+            <button onclick="reservar()">📅 Reservar agora</button>
+            <button onclick="limparCampos()" style="background:#ff9800; margin-left:10px;">🧹 Limpar campos</button>
+            <button onclick="limparReservas()" style="background:#d32f2f; margin-left:10px;">🗑️ Limpar reservas</button>
+
+            <p id="resultado"></p>
+        </div>
+
+        <div class="card">
+            <h2>📋 Todas as reservas</h2>
+            <ul id="lista" style="list-style: none;"></ul>
+        </div>
+    </div>
+
+    <div id="telaReservas">
+        <div class="card">
+            <div class="tituloAmbiente">
+                <h2 id="tituloReservas"></h2>
+                <button class="voltar" onclick="mostrarInicio()">← Voltar ao ambiente</button>
+            </div>
+            <hr style="margin:20px 0; border:0; border-top:1px solid #ddd;">
+            <div id="listaAmbiente"></div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    ReservaFácil Escolar HBM GBR ©️ 2026
+</footer>
+
+<script>
+let reservas = [];
+
+function carregarReservas() {
+    let salvas = localStorage.getItem("reservasEscolares");
+    if (salvas) {
+        try {
+            const dados = JSON.parse(salvas);
+            reservas = Array.isArray(dados) ? dados : [];
+        } catch (erro) {
+            console.error("Erro ao carregar reservas:", erro);
+            reservas = [];
+        }
+    }
+    mostrarTodasReservas();
+}
+
+function reservar() {
+    let nome = document.getElementById("nome").value.trim();
+    let local = document.getElementById("local").value.trim();
+    let data = document.getElementById("data").value;
+    let hora = document.getElementById("hora").value;
+
+    if (nome === "" || data === "" || hora === "") {
+        alert("Preencha todos os campos!");
+        return;
+    }
+
+    let existe = reservas.some(function(reserva) {
+        return reserva.local && reserva.local.trim().toLowerCase() === local.toLowerCase() &&
+               reserva.data === data &&
+               reserva.hora === hora;
+    });
+
+    if (existe) {
+        alert("⚠️ Esse espaço já está reservado nesse horário!");
+        return;
+    }
+
+    let novaReserva = {
+        nome: nome,
+        local: local,
+        data: data,
+        hora: hora
+    };
+
+    reservas.push(novaReserva);
+    localStorage.setItem("reservasEscolares", JSON.stringify(reservas));
+    document.getElementById("resultado").innerHTML = "✅ Reserva realizada com sucesso!";
+
+    limparCamposSemMensagem();
+    mostrarTodasReservas();
+}
+
+function mostrarTodasReservas() {
+    let lista = document.getElementById("lista");
+    lista.innerHTML = "";
+
+    if (reservas.length === 0) {
+        lista.innerHTML = '<p class="semReserva">📭 Nenhuma reserva encontrada</p>';
+        return;
+    }
+
+    reservas.forEach(function(reserva) {
+        let item = document.createElement("li");
+        item.className = "reserva";
+        item.innerHTML = `
+            <strong>${reserva.nome}</strong><br>
+            📍 ${reserva.local}<br>
+            📅 ${formatarData(reserva.data)}<br>
+            ⏰ ${reserva.hora}
+        `;
+        lista.appendChild(item);
+    });
+}
+
+function abrirReservas(ambiente) {
+    document.getElementById("telaPrincipal").style.display = "none";
+    document.getElementById("telaReservas").style.display = "block";
+    document.getElementById("tituloReservas").textContent = "📋 Reservas — " + ambiente;
+
+    const lista = document.getElementById("listaAmbiente");
+    lista.innerHTML = "";
+
+    const reservasDoAmbiente = reservas.filter(function(reserva) {
+        return reserva && reserva.local && reserva.local.trim().toLowerCase() === ambiente.trim().toLowerCase();
+    });
+
+    if (reservasDoAmbiente.length === 0) {
+        lista.innerHTML = `
+            <div class="semReserva">
+                <h3>📭 Nenhuma reserva encontrada</h3>
+                <p style="margin-top:8px;">Este ambiente ainda não possui reservas.</p>
+            </div>
+        `;
+        return;
+    }
+
+    reservasDoAmbiente.sort(function(a, b) {
+        return (a.data + " " + a.hora).localeCompare(b.data + " " + b.hora);
+    });
+
+    reservasDoAmbiente.forEach(function(reserva) {
+        const div = document.createElement("div");
+        div.className = "reserva";
+        div.innerHTML = `
+            <strong>👤 ${reserva.nome}</strong><br><br>
+            📍 <strong>Espaço:</strong> ${reserva.local}<br>
+            📅 <strong>Data:</strong> ${formatarData(reserva.data)}<br>
+            ⏰ <strong>Horário:</strong> ${reserva.hora}
+        `;
+        lista.appendChild(div);
+    });
+}
+
+function mostrarInicio() {
+    document.getElementById("telaPrincipal").style.display = "block";
+    document.getElementById("telaReservas").style.display = "none";
+    mostrarTodasReservas();
+}
+
+function limparCampos() {
+    limparCamposSemMensagem();
+    document.getElementById("local").selectedIndex = 0;
+    document.getElementById("resultado").innerHTML = "🧹 Campos limpos. Pronto para uma nova reserva!";
+}
+
+function limparCamposSemMensagem() {
+    document.getElementById("nome").value = "";
+    document.getElementById("data").value = "";
+    document.getElementById("hora").value = "";
+}
+
+function limparReservas() {
+    if (confirm("Deseja apagar TODAS as reservas?")) {
+        reservas = [];
+        localStorage.removeItem("reservasEscolares");
+        mostrarTodasReservas();
+        document.getElementById("resultado").innerHTML = "🗑️ Todas as reservas foram removidas!";
+    }
+}
+
+function formatarData(data) {
+    if (!data) return "";
+    let partes = data.split("-");
+    return partes[2] + "/" + partes[1] + "/" + partes[0];
+}
+
+window.onload = function() {
+    carregarReservas();
+};
+</script>
+</body>
+</html>
